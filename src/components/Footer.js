@@ -1,11 +1,12 @@
+import React from 'react';
 import styles from './Footer.module.css';
 const Footer = () => {
   return (
-    <Footer>
+    <footer className={styles.footer}>
         <h3>Escreva sobre o que você tem interresse!</h3>
         <p>Mini Blog &copy; 2022</p>
-    </Footer>
-  );
-};
+    </footer>
+  )
+}
 
-export default Footer;
+export default Footer
