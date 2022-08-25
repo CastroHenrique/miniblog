@@ -1,6 +1,6 @@
 import { useState, useEffect, useReducer } from "react"
 import { db } from '../firebase/config';
-import {collection, addDoc, Timestamp} from 'firebase/firestore'
+import { collection, addDoc, Timestamp } from 'firebase/firestore'
 
 const initialState = {
     loading: null,
@@ -10,11 +10,11 @@ const initialState = {
 const insertReducer = (state, action) => {
     switch(action.type) {
         case "LOADING":
-            return{loading: true, error: null}
+            return{loading: true, error: null};
         case "INSERTED_DOC":
-            return{loading: false, error: null}
+            return{loading: false, error: null};
         case "ERROR":
-            return{loading: false, error: action.payload}
+            return{loading: false, error: action.payload};
         default:
             return state;
     }
@@ -24,33 +24,34 @@ export const useInsertDocument = (docCollection) => {
 
     const [response, dispatch] = useReducer (insertReducer, initialState)
 
+
     // deal with memory leak
 
     const [cancelled, setCancelled] = useState(false)
-    const checkCancelledBeforeDispach = (action) => {
+    const checkCancelBeforeDispatch = (action) => {
         if (!cancelled) {
             dispatch(action)
         }
     }
 const insertDocument = async(document) => {
-    checkCancelledBeforeDispach({
+    checkCancelBeforeDispatch({
         type: "LOADING",
        
-    })
+    });
 
     try {
-        const newdocument = {...document, createAt: Timestamp.now()}
+        const newDocument = {...document, createAt: Timestamp.now()}
 
-        const insertDocument = await addDoc(
+        const insertedDocument = await addDoc(
             collection(db, docCollection), 
-            newdocument
+            newDocument
         )
-        checkCancelledBeforeDispach({
+        checkCancelBeforeDispatch({
             type: "INSERTED_DOC",
-            payload: insertDocument
+            payload: insertedDocument,
         })
     } catch (error) {
-        checkCancelledBeforeDispach({
+        checkCancelBeforeDispatch({
             type: "ERROR",
             payload: error.message,
         })

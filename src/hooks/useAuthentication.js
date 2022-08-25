@@ -1,5 +1,3 @@
-import { db } from '../firebase/config'
-
 import { 
     getAuth,                          //
     createUserWithEmailAndPassword,   //
@@ -19,21 +17,20 @@ export const useAuthentication = () =>  {
     //deal with memory leak
     const [cancelled, setCancelled] = useState(false)
 
-    const auth =getAuth()
+    const auth = getAuth()
 
     function checkIfIsCancelled () { //cleanup
         if (cancelled) {
-            return;
+            return
         }
     }
+
     // REGISTRO
     const createUser = async (data) => {
+        checkIfIsCancelled()
 
-        checkIfIsCancelled();
-
-        setLoading(true);
-
-        setError(null);
+        setLoading(true)
+        setError(null)
 
         try {
             const {user} = await createUserWithEmailAndPassword(
@@ -47,11 +44,11 @@ export const useAuthentication = () =>  {
             })
            
             setLoading(false);
-            return user;
+            return user
 
         } catch (error) {
-            console.log(error.message);
-            console.log(typeof error.message);
+            console.log(error.message)
+            console.log(typeof error.message)
 
                 let systemErrorMessage;
 
@@ -61,11 +58,10 @@ export const useAuthentication = () =>  {
                 systemErrorMessage = "E-mail ja cadastrado.";
             } else {
                 systemErrorMessage = "Ocorreu um erro, por favor tente mais tarde.";
-            }
+            } 
             setLoading(false);
             setError(systemErrorMessage)
         }
-
     };
     //^- FIM DO REGISTRO
 
@@ -80,11 +76,13 @@ export const useAuthentication = () =>  {
     // LOGIN - SIGN IN
     const login = async(data) => {
 
-       checkIfIsCancelled(); 
-       setLoading(true);
-       setError(false);
+       checkIfIsCancelled()
+
+       setLoading(true)
+       setError(false)
+
        try {
-            await signInWithEmailAndPassword(auth, data.email, data.password)
+            await signInWithEmailAndPassword(auth, data.email, data.password);
             setLoading(false);
 
        } catch (error) {
@@ -116,6 +114,6 @@ export const useAuthentication = () =>  {
         error,
         loading,
         logout,
-        login
+        login,
     };
 };

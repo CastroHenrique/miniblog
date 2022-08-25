@@ -6,11 +6,11 @@ import {useAuthValue} from '../../context/AuthContext';
 import { useInsertDocument } from '../../hooks/useInsertDocument';
 
 
-const CreatPost = () => {
+const CreatePost = () => {
     const [title, setTitle] = useState("")
     const [image, setImage] = useState("")
     const [body, setBody] = useState("")
-    const [tags, setTags] = useState("")
+    const [tags, setTags] = useState([])
     const [formError, setFormError] = useState ("")
 
     const {user} = useAuthValue()
@@ -27,7 +27,7 @@ const CreatPost = () => {
         try {
             new URL(image)
         } catch (error) {
-            setFormError("A imagem precisa ser uma URL")
+            setFormError("A imagem precisa ser uma URL.")
         }
 
         // CRIAR O ARRY DE TAGS
@@ -35,19 +35,20 @@ const CreatPost = () => {
         const tagsArray = tags.split(",").map((tag) => tag.trim().toLowerCase());
 
         // CHECAR TODOS OS VALORES
-        if(!title || !image || !tags || !body) {
+        if (!title || !image || !tags || !body) {
             setFormError ("Por favor, preencha todos os campos!")
         }
 
         if (formError) return;
+
        insertDocument({
         title,
         image,
         body,
         tagsArray,
         uid: user.uid,
-        createBy: user.displayName
-       })
+        createBy: user.displayName,
+       });
 
        // REDIRECT TO HOME PAGE
        navigate("/")
@@ -115,4 +116,4 @@ const CreatPost = () => {
   )
 }
 
-export default CreatPost
+export default CreatePost

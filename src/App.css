@@ -1,4 +1,4 @@
-.container{
+.container {
   min-height: 60vh; /* ALTURA MINIMA*/
   margin-bottom: 5em; /*PRA SEPARAR OS COMPONENTES QUE ESTIVEREM NESSE CONTAINER*/
 }

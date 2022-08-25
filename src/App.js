@@ -4,12 +4,12 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth'; // mapeia se autenticação do usuário foi feita com sucesso
 
 //hooks
-
 import { useState, useEffect } from 'react';
 import { useAuthentication } from './hooks/useAuthentication';
 
 //context
 import { AuthProvider } from './context/AuthContext';
+
 // pages
 import About from './pages/About/About';
 import Home from './pages/Home/Home';
@@ -17,8 +17,9 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
-import CreatPost from './pages/CreatePost/CreatPost';
+import CreatePost from './pages/CreatePost/CreatePost';
 import Dashboard from './pages/Deshboard/Dashboard';
+import Search from './pages/Search/Search';
 
 
 
@@ -30,13 +31,13 @@ function App() {
 
   const loadingUser = user === undefined
   
-useEffect(() => {
+  useEffect(() => {
 
   onAuthStateChanged(auth, (user) => {
-    setUser(user);
+    setUser(user)
   })
 
-}, [auth]);
+}, [auth])
 
   if(loadingUser){
     return <p>Carregando...</p>; 
@@ -46,32 +47,33 @@ useEffect(() => {
 
   return (
     <div className="App">
-   <AuthProvider value={ { user } }>
-    <BrowserRouter>
-        <Navbar />
-          <div className="container">
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/about' element={<About/>} />
-              <Route
-                path='/login' 
-                element={!user ? <Login /> : <Navigate to='/' />} 
-              />
-              <Route path='/register' 
-                element={!user ? <Register /> : <Navigate to='/' />}
-              />
-              <Route
-                path='/posts/create' 
-                element={user ? <CreatPost/> : <Navigate to='/login' />} 
-              />
-              <Route 
-                path='/dashboard' 
-                element={user ? <Dashboard/> : <Navigate to='/login' />}/>
-            </Routes>
-          </div> 
-        <Footer />
-      </BrowserRouter>
-   </AuthProvider>
+      <AuthProvider value={{ user }}>
+        <BrowserRouter>
+          <Navbar />
+            <div className="container">
+              <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/about' element={<About/>} />
+                <Route path='/search' element={<Search/>} />
+                <Route
+                  path='/login' 
+                  element={!user ? <Login /> : <Navigate to='/' />} 
+                />
+                <Route path='/register' 
+                  element={!user ? <Register /> : <Navigate to='/' />}
+                />
+                <Route
+                  path='/posts/create' 
+                  element={user ? <CreatePost/> : <Navigate to='/login' />} 
+                />
+                <Route 
+                  path='/dashboard' 
+                  element={user ? <Dashboard/> : <Navigate to='/login' />}/>
+              </Routes>
+            </div> 
+          <Footer />
+        </BrowserRouter>
+      </AuthProvider>
     </div>
   )
 }

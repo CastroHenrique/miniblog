@@ -2,7 +2,7 @@ body {
   background-color: #F6FCFF;
   padding: 0;
   margin: 0;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", sans-serif ;
 }
 
 input::placeholder,
@@ -22,14 +22,14 @@ nav button {
   background-color: transparent;
   border: none;
   color: #000;
-  transition: .4s;
+  transition: 0.4s;
   font-size: 1em;
   cursor: pointer;
   font-family: "Montserrat", sans-serif;;
 }
 
 a:hover,
-nav button {
+nav button:hover {
   color: #bbb;
 }
 
@@ -38,16 +38,18 @@ form {
   max-width: 40%;
   margin: 0 auto;
 }
+
 label {
   display: flex;
   flex-direction: column;
   margin-bottom: 1em;
 }
+
 label span {
-  margin: .3em;
+  margin: 0.3em;
   font-weight: bold;
   text-align: left;
-  }
+}
 
 input,
 textarea {
@@ -65,7 +67,7 @@ textarea {
   cursor: pointer;
   border-radius: 10px;
   width: 120px;
-  font-size: bold;
+  font-weight: bold;
   border: none;
   padding: 10px 15px;
   font-size: 1em;
@@ -76,7 +78,7 @@ textarea {
   border-radius: 0;
 }
 
-.btn.btn-autline {
+.btn.btn-outline {
   background-color: transparent;
   border-radius: 0;
   color: #000;
@@ -89,9 +91,10 @@ textarea {
   color: #fff;
 }
 
-.btn.btn-autline:hover {
+.btn.btn-outline:hover {
   background-color: #000;
 }
+
 .btn.btn-danger:hover {
   background-color: #DC3545;
 }
@@ -99,6 +102,7 @@ textarea {
 button[disabled] {
   background: #AAA;
 }
+
 .container .error {
   color:#721C24;
   background-color: #f8d7da;

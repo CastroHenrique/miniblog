@@ -1,7 +1,5 @@
 import styles from './Register.module.css';
-
 import { useState, useEffect } from 'react';
-
 import { useAuthentication } from '../../hooks/useAuthentication';
 
 const Register = () => {
@@ -28,17 +26,12 @@ const Register = () => {
 
         if(password !== confirmPassword){
             setError("As senhas precisam ser iguais");
-            return;
+            return
         }
 
         const res = await createUser(user)
 
         console.log(res);
-
-        setDisplayName("");
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
     };
 
     useEffect (() => {
@@ -59,8 +52,8 @@ const Register = () => {
                 <span>Nome:</span>
                 <input
                  type="text" 
-                 name="displayName" 
-                 id="displayName"  
+                 name="displayName"  
+                 required
                  placeholder='Nome do usuário' 
                  value={displayName}
                  onChange={(e) => setDisplayName(e.target.value)}
@@ -70,9 +63,9 @@ const Register = () => {
                 <span>E-mail:</span>
                 <input
                  type="email" 
-                 name="email" 
-                 id="email"  
-                 placeholder='E-mail do usuário' 
+                 name="email"  
+                 placeholder='E-mail do usuário'
+                 required 
                  value={email}
                  onChange={(e) => setEmail(e.target.value)}
                 />
@@ -82,7 +75,7 @@ const Register = () => {
                 <input
                  type="password" 
                  name="password" 
-                 id="password " 
+                 required 
                  placeholder='Insira sua senha' 
                  value={password}
                  onChange={(e) => setPassword(e.target.value)}
@@ -93,14 +86,18 @@ const Register = () => {
                 <input
                  type="password" 
                  name="confirmPassword" 
-                 id="confirmPassword " 
+                 required
                  placeholder='Confirme sua senha'
                  value={confirmPassword}
                  onChange={(e) => setConfirmPassword(e.target.value)} 
                 />
             </label>
             {!loading && <button className="btn">Cadastrar</button>}
-            {loading && <button className="btn" disabled>Aguarde</button>}
+            {loading &&(
+                <button className="btn" disabled>
+                    Aguarde...
+                </button>
+            )}
             {error &&  <p className="error">{error}</p>}
         </form>
     </div>
