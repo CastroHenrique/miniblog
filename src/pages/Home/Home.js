@@ -6,14 +6,14 @@ import { useState } from 'react';
 import { useNavigate, Link  } from 'react-router-dom';
 import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 
-
 // componentes 
 
 import PostDetail from '../../components/PostDetail';
 
 const Home = () => {
+
   const [query, setQuery] = useState("")
-  const {documents: posts, loading} = useFetchDocuments();
+  const {documents: posts, loading} = useFetchDocuments("posts");
 
   const navigate = useNavigate()
   
@@ -23,7 +23,7 @@ const Home = () => {
 
     if (query) {
       return navigate(`/search?q=${query}`)
-    }
+    };
   };
 
   
@@ -40,7 +40,7 @@ const Home = () => {
       </form>
       <div>
         {loading && <p>Carregando...</p>}
-        {posts && posts.map((post) => <PostDetail key={post.uid} post={post}/>)}
+        {posts && posts.map((post) => <PostDetail key={post.id} post={post}/>)}
         {posts && posts.length === 0 && (
           <div className={styles.noposts}>
             <p>Não foram encontrado posts</p>

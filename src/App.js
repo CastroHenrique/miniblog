@@ -20,6 +20,8 @@ import Register from './pages/Register/Register';
 import CreatePost from './pages/CreatePost/CreatePost';
 import Dashboard from './pages/Deshboard/Dashboard';
 import Search from './pages/Search/Search';
+import Post from './pages/Post/Post';
+import EditPost from './pages/EditPost/EditPost';
 
 
 
@@ -55,12 +57,18 @@ function App() {
                 <Route path='/' element={<Home />} />
                 <Route path='/about' element={<About/>} />
                 <Route path='/search' element={<Search/>} />
+                <Route path='/posts/:id' element={<Post/>} />
                 <Route
                   path='/login' 
                   element={!user ? <Login /> : <Navigate to='/' />} 
                 />
-                <Route path='/register' 
+                <Route
+                  path='/register' 
                   element={!user ? <Register /> : <Navigate to='/' />}
+                />
+                <Route
+                  path='/posts/edit/:id' 
+                  element={user ? <EditPost /> : <Navigate to='/login'/>} 
                 />
                 <Route
                   path='/posts/create' 
