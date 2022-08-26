@@ -33,7 +33,7 @@ export const useUpdateDocument = (docCollection) => {
             dispatch(action)
         }
     }
-const updateDocument = async( id, data) => {
+    const updateDocument = async( id, data) => {
     checkCancelBeforeDispatch({
         type: "LOADING",
        
